@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=3 uid="uid://c70q0tpm5yxhc"]
+
+[ext_resource type="Script" path="res://Code/state_machine.gd" id="1_arnkj"]
+[ext_resource type="Script" path="res://Code/States/Idle.gd" id="2_o7frp"]
+[ext_resource type="Script" path="res://Code/States/Fishing.gd" id="2_u2u73"]
+[ext_resource type="Script" path="res://Code/States/Moving.gd" id="3_rn3u5"]
+[ext_resource type="Script" path="res://Code/States/MiniGame.gd" id="4_enu6x"]
+
+[node name="state_machine" type="Node3D" node_paths=PackedStringArray("_initialState")]
+script = ExtResource("1_arnkj")
+_initialState = NodePath("Idle")
+
+[node name="Idle" type="Node3D" parent="."]
+script = ExtResource("2_o7frp")
+
+[node name="Fishing" type="Node3D" parent="."]
+script = ExtResource("2_u2u73")
+
+[node name="MiniGame" type="Node3D" parent="."]
+script = ExtResource("4_enu6x")
+
+[node name="Moving" type="Node3D" parent="."]
+script = ExtResource("3_rn3u5")
