@@ -9,7 +9,7 @@ func Exit():
 	print("Mini game over")
 
 func Update(_delta: float):
-	if GlobalInput._actionButton:
+	if GlobalInput._longActionButton:
 		_totalTime += _delta
 	
 	if GlobalInput._actionRelease:

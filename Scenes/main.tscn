@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://watjdltbp07n"]
+
+[ext_resource type="PackedScene" uid="uid://b4tlaop81ivi7" path="res://Scenes/player_character.tscn" id="1_un332"]
+[ext_resource type="PackedScene" uid="uid://c70q0tpm5yxhc" path="res://Scenes/StateMachine.tscn" id="2_f8ipi"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1vtgw"]
+size = Vector3(60, 2, 60)
+
+[sub_resource type="BoxMesh" id="BoxMesh_or5mh"]
+size = Vector3(60, 2, 60)
+
+[node name="Main" type="Node"]
+
+[node name="Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, -1, 2.08165e-12)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_1vtgw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("BoxMesh_or5mh")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.376079, 0.926588, 0, -0.926588, 0.376079, 0, 10.5472, 0)
+shadow_enabled = true
+
+[node name="PlayerCharacter" parent="." instance=ExtResource("1_un332")]
+
+[node name="state_machine" parent="." instance=ExtResource("2_f8ipi")]

@@ -41,5 +41,3 @@ func OnChildChangeState(state, newStateName):
 	_newState.Enter()
 	
 	_currentState = _newState
-
-

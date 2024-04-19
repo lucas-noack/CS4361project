@@ -1,4 +1,3 @@
-extends State
 class_name Moving
 
 
