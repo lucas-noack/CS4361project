@@ -1,53 +1,63 @@
-extends CharacterBody3D
+class_name PlayerCharacter extends CharacterBody3D
 
-@onready var MainCamera = get_node("FPSCamera")
-const SPEED = 5.0
-const JUMP_VELOCITY = 4.5
+@export_category("Player")
+@export_range(1, 35, 1) var speed: float = 10 # m/s
+@export_range(10, 400, 1) var acceleration: float = 100 # m/s^2
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
-var CameraRotation = Vector2(0,0)
-var mouse_sensitivity = 0.002
+@export_range(0.1, 3.0, 0.1, "or_greater") var camera_sens: float = 1
 
-func _ready():
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	
-func _physics_process(delta):
-	# Add the gravity.
-	if not is_on_floor():
-		velocity.y -= gravity * delta
+var mouse_captured: bool = false
 
-	# Handle jump.
-	if GlobalInput._actionButton and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir = GlobalInput._joy1
-	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
+var move_dir: Vector2 # Input direction for movement
+var look_dir: Vector2 # Input direction for look/aim
 
-	move_and_slide()
-	
-func _input(event):
-	if event.is_action_pressed("ui_cancel"):
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	
+var walk_vel: Vector3 # Walking velocity 
+var grav_vel: Vector3 # Gravity velocity 
+
+@onready var camera: Camera3D = $FPSCamera
+
+func _ready() -> void:
+	capture_mouse()
+
+func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
-		var MouseEvent = event.relative * mouse_sensitivity
-		CameraLook(MouseEvent)
-		
-func CameraLook(Movement: Vector2):
-	CameraRotation += Movement
-	CameraRotation.y = clamp(CameraRotation.y, -1.5, 1.2)
-	
-	transform.basis = Basis()
-	MainCamera.transform.basis = Basis()
-	
-	rotate_object_local(Vector3(0,1,0), -CameraRotation.x)
-	MainCamera.rotate_object_local(Vector3(1,0,0), -CameraRotation.y)
+		look_dir = event.relative * 0.001
+		if mouse_captured: _rotate_camera()
+	if Input.is_action_just_pressed("exit"): get_tree().quit()
+
+func _physics_process(delta: float) -> void:
+	if mouse_captured: _handle_joypad_camera_rotation(delta)
+	velocity = _walk(delta) + _gravity(delta)
+	move_and_slide()
+
+func capture_mouse() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	mouse_captured = true
+
+func release_mouse() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	mouse_captured = false
+
+func _rotate_camera(sens_mod: float = 1.0) -> void:
+	camera.rotation.y -= look_dir.x * camera_sens * sens_mod
+	camera.rotation.x = clamp(camera.rotation.x - look_dir.y * camera_sens * sens_mod, -1.5, 1.5)
+
+func _handle_joypad_camera_rotation(delta: float, sens_mod: float = 1.0) -> void:
+	var joypad_dir: Vector2 = Input.get_vector("look_left","look_right","look_up","look_down")
+	if joypad_dir.length() > 0:
+		look_dir += joypad_dir * delta
+		_rotate_camera(sens_mod)
+		look_dir = Vector2.ZERO
+
+func _walk(delta: float) -> Vector3:
+	move_dir = Input.get_vector("Joy1Left", "Joy1Right", "Joy1Up", "Joy1Down")
+	var _forward: Vector3 = camera.global_transform.basis * Vector3(move_dir.x, 0, move_dir.y)
+	var walk_dir: Vector3 = Vector3(_forward.x, 0, _forward.z).normalized()
+	walk_vel = walk_vel.move_toward(walk_dir * speed * move_dir.length(), acceleration * delta)
+	return walk_vel
+
+func _gravity(delta: float) -> Vector3:
+	grav_vel = Vector3.ZERO if is_on_floor() else grav_vel.move_toward(Vector3(0, velocity.y - gravity, 0), gravity * delta)
+	return grav_vel

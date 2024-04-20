@@ -19,4 +19,4 @@ func _process(_delta):
 	# Space key
 	_longActionButton = Input.is_action_pressed("StateBasedAction") 
 	# Esc Key
-	_cancelButton = Input.is_action_pressed("Cancel")
+	_cancelButton = Input.is_action_pressed("exit")
