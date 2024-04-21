@@ -1,12 +1,50 @@
-[gd_scene load_steps=3 format=3 uid="uid://bx18e7qpbqkhb"]
+[gd_scene load_steps=8 format=3 uid="uid://bx18e7qpbqkhb"]
 
-[ext_resource type="Material" uid="uid://ir2ui2e2naok" path="res://Shaders/water_material.tres" id="1_oseu2"]
+[ext_resource type="Shader" path="res://Shaders/realistic_water.gdshader" id="1_ysqb1"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_bkvfr"]
+noise_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jbj6a"]
+seamless = true
+as_normal_map = true
+noise = SubResource("FastNoiseLite_bkvfr")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_sjdu2"]
+noise_type = 0
+seed = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_hs1s4"]
+seamless = true
+as_normal_map = true
+noise = SubResource("FastNoiseLite_sjdu2")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eu424"]
+render_priority = 0
+shader = ExtResource("1_ysqb1")
+shader_parameter/water_color = Color(0, 0.188235, 0.196078, 1)
+shader_parameter/depth_distance = 0.7
+shader_parameter/water_color_ratio = 0.5
+shader_parameter/beers_law = 3.0
+shader_parameter/uv_scale = 0.7
+shader_parameter/normal_scale = 0.4
+shader_parameter/roughness_scale = 0.2
+shader_parameter/time_scale = 1.8
+shader_parameter/water_noise_1 = SubResource("NoiseTexture2D_jbj6a")
+shader_parameter/water_noise_2 = SubResource("NoiseTexture2D_hs1s4")
 
 [sub_resource type="BoxMesh" id="BoxMesh_au6yr"]
+material = SubResource("ShaderMaterial_eu424")
 size = Vector3(10, 1, 10)
+subdivide_width = 200
+subdivide_height = 200
 
 [node name="MeshInstance3D" type="MeshInstance3D"]
-transparency = 0.1
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.143048, 0.122915, 0.157028)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_au6yr")
-surface_material_override/0 = ExtResource("1_oseu2")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.186146, 0.719016)
+cast_shadow = 0
+height = 2.25075
