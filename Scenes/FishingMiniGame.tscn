@@ -1,0 +1,29 @@
+[gd_scene]
+name="FishingMiniGame"
+type="Control"
+rect="Rect(0, 0, 1000, 600)"
+
+[anchors]
+right=1.0
+bottom=1.0
+
+[child]
+name="BarRectangle"
+type="Control"
+rect="Rect(100, 250, 800, 50)"
+
+color="Color(0.0, 1.0, 0.0, 1.0)" # Green
+
+[child]
+name="BlueZoneRectangle"
+type="Control"
+rect="Rect(350, 250, 150, 50)"
+
+color="Color(0.0, 0.0, 1.0, 1.0)" # Blue
+
+[child]
+name="MovingLine"
+type="Control"
+rect="Rect(100, 245, 10, 60)"
+
+color="Color(1.0, 0.0, 0.0, 1.0)" # Red
