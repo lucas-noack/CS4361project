@@ -3,7 +3,7 @@
 [ext_resource type="Material" uid="uid://ir2ui2e2naok" path="res://Shaders/water_material.tres" id="1_dpq8t"]
 [ext_resource type="PackedScene" uid="uid://b4tlaop81ivi7" path="res://Scenes/player_character.tscn" id="1_un332"]
 [ext_resource type="PackedScene" uid="uid://c70q0tpm5yxhc" path="res://Scenes/StateMachine.tscn" id="2_f8ipi"]
-[ext_resource type="PackedScene" uid="uid://c06qbp1y2xvtx" path="res://fishing_rod_rigged_and_animated/scene.gltf" id="4_gck68"]
+[ext_resource type="PackedScene" uid="uid://cevecwa0tmq7n" path="res://fishing_rod_rigged_and_animated/scene.gltf" id="4_gck68"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pvrjl"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
