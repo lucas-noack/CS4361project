@@ -2,12 +2,11 @@
 
 [ext_resource type="Material" uid="uid://ir2ui2e2naok" path="res://Shaders/water_material.tres" id="1_oseu2"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_ieyqp"]
-subdivide_width = 200
-subdivide_depth = 200
-orientation = 1
+[sub_resource type="BoxMesh" id="BoxMesh_au6yr"]
+size = Vector3(10, 1, 10)
 
 [node name="MeshInstance3D" type="MeshInstance3D"]
+transparency = 0.1
 cast_shadow = 0
-mesh = SubResource("QuadMesh_ieyqp")
+mesh = SubResource("BoxMesh_au6yr")
 surface_material_override/0 = ExtResource("1_oseu2")
