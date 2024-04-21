@@ -1,29 +1,16 @@
-[gd_scene]
-name="FishingMiniGame"
-type="Control"
-rect="Rect(0, 0, 1000, 600)"
+[gd_scene load_steps=2 format=3 uid="uid://dgsjaigms8fiv"]
 
-[anchors]
-right=1.0
-bottom=1.0
+[ext_resource type="Script" path="res://Code/FishingMiniGame.gd" id="1"]
 
-[child]
-name="BarRectangle"
-type="Control"
-rect="Rect(100, 250, 800, 50)"
+[node name="FishingMiniGame" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1")
 
-color="Color(0.0, 1.0, 0.0, 1.0)" # Green
-
-[child]
-name="BlueZoneRectangle"
-type="Control"
-rect="Rect(350, 250, 150, 50)"
-
-color="Color(0.0, 0.0, 1.0, 1.0)" # Blue
-
-[child]
-name="MovingLine"
-type="Control"
-rect="Rect(100, 245, 10, 60)"
-
-color="Color(1.0, 0.0, 0.0, 1.0)" # Red
+[node name="BarRectangle" type="ColorRect" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(1, 0, 0, 1)
