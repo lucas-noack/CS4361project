@@ -14,9 +14,7 @@ func _ready():
 func _process(delta):
 	cast(_rotSpeed)
 	
-
 func coroutine(_wait: float, _waitAgain: float):
-	
 	print("start back")
 	_rotSpeed = _rotBack
 	await get_tree().create_timer(_wait).timeout;
