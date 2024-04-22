@@ -1,5 +1,6 @@
 shader_type spatial;
 
+//tweak as intended
 uniform vec3 water_color : source_color;
 uniform sampler2D water_noise_1;
 uniform sampler2D water_noise_2;
@@ -14,7 +15,7 @@ uniform float roughness_scale : hint_range(0.0, 1.0, 0.1) = 0.2;
 uniform float time_scale : hint_range(0.0, 10.0, 0.1) = 5.0;
 varying vec4 world_uv;
 
-void vertex()
+void vertex()//for world uv so water can be scaled, layered, duplicated
 {
 	world_uv = MODEL_MATRIX * vec4(VERTEX, 1.0);
 }
@@ -25,14 +26,18 @@ void fragment()
 	uv.x += sin(TIME * time_scale + (uv.x + uv.y) * 25.0) * 0.01;
 	uv.y += cos(TIME * time_scale + (uv.x - uv.y) * 25.0) * 0.01;
 	
+	//for depth effect
 	float depth_r = textureLod(depth_texture, SCREEN_UV, 0.0).r;
 	vec4 world = INV_PROJECTION_MATRIX * vec4(SCREEN_UV*2.0 - 1.0, depth_r, 1.0);
 	world.xyz /= world.w;
 	float depth_blend = smoothstep(world.z + depth_distance, world.z, VERTEX.z);
 	depth_blend = clamp(pow(depth_blend, 3.0), 0.0, 1.0);
-	vec3 screen = textureLod(screen_texture, SCREEN_UV, 0.0).rgb;
+	vec2 suv = SCREEN_UV;
+	suv.x += sin(TIME * time_scale + (suv.x + suv.y) * 50.0) * 0.01;
+	suv.y += cos(TIME * time_scale + (suv.x - suv.y) * 50.0) * 0.01;
+	vec3 screen = textureLod(screen_texture, suv, 0.0).rgb;
 	
-	ALBEDO = mix(screen * depth_blend, water_color, water_color_ratio) 	;
+	ALBEDO = mix(screen * depth_blend, water_color, water_color_ratio);
 	NORMAL_MAP = mix(texture(water_noise_1, uv).rgb, texture(water_noise_2, uv).rgb, (sin(TIME * time_scale) + 1.0)/2.0);
 	NORMAL *= normal_scale;
 	ROUGHNESS = roughness_scale;

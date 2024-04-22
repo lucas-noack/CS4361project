@@ -45,6 +45,6 @@ cast_shadow = 0
 mesh = SubResource("BoxMesh_au6yr")
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.186146, 0.719016)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.762634, 0.0576595, 0.870498)
 cast_shadow = 0
 height = 2.25075

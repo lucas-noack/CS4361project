@@ -3,10 +3,17 @@
 [ext_resource type="Material" uid="uid://ir2ui2e2naok" path="res://Shaders/water_material.tres" id="1_dpq8t"]
 [ext_resource type="PackedScene" uid="uid://b4tlaop81ivi7" path="res://Scenes/player_character.tscn" id="1_un332"]
 [ext_resource type="PackedScene" uid="uid://c70q0tpm5yxhc" path="res://Scenes/StateMachine.tscn" id="2_f8ipi"]
+<<<<<<< Updated upstream
 [ext_resource type="PackedScene" uid="uid://f1ok5aw4j28t" path="res://assets/fishing_rod/scene.gltf" id="4_lp7sl"]
 [ext_resource type="Script" path="res://Code/fishingCast.gd" id="5_aycmk"]
 [ext_resource type="Script" path="res://Scenes/fishingLine.gd" id="6_gmxt2"]
 [ext_resource type="PackedScene" uid="uid://cj6rjqa1odqb7" path="res://assets/fishing_bobber/scene.gltf" id="7_smiox"]
+=======
+[ext_resource type="PackedScene" uid="uid://cklwao4th5kvd" path="res://assets/fishing_rod/scene.gltf" id="4_lp7sl"]
+[ext_resource type="Script" path="res://Code/fishingCast.gd" id="5_aycmk"]
+[ext_resource type="Script" path="res://Scenes/fishingLine.gd" id="6_gmxt2"]
+[ext_resource type="PackedScene" uid="uid://b1u6k0fw2o4ip" path="res://assets/fishing_bobber/scene.gltf" id="7_smiox"]
+>>>>>>> Stashed changes
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pvrjl"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
