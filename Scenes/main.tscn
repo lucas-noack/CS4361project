@@ -1,12 +1,21 @@
+<<<<<<< HEAD
 [gd_scene load_steps=13 format=3 uid="uid://watjdltbp07n"]
+=======
+[gd_scene load_steps=12 format=3 uid="uid://watjdltbp07n"]
+>>>>>>> e7aa6dcb4017c56953756a35742fb2aa7b19f48a
 
 [ext_resource type="Material" uid="uid://ir2ui2e2naok" path="res://Shaders/water_material.tres" id="1_dpq8t"]
 [ext_resource type="PackedScene" uid="uid://b4tlaop81ivi7" path="res://Scenes/player_character.tscn" id="1_un332"]
 [ext_resource type="PackedScene" uid="uid://c70q0tpm5yxhc" path="res://Scenes/StateMachine.tscn" id="2_f8ipi"]
+<<<<<<< HEAD
 [ext_resource type="PackedScene" uid="uid://kdo2m7j1ykjl" path="res://fishing_rod/scene.gltf" id="4_lp7sl"]
 [ext_resource type="Script" path="res://Code/fishingCast.gd" id="5_aycmk"]
 [ext_resource type="Script" path="res://Scenes/fishingLine.gd" id="6_gmxt2"]
 [ext_resource type="PackedScene" uid="uid://u0nrtklc8c7w" path="res://fishing_bobber/scene.gltf" id="7_smiox"]
+=======
+[ext_resource type="PackedScene" uid="uid://cevecwa0tmq7n" path="res://fishing_rod_rigged_and_animated/scene.gltf" id="4_gck68"]
+[ext_resource type="Script" path="res://Code/Fish1.gd" id="5_npddq"]
+>>>>>>> e7aa6dcb4017c56953756a35742fb2aa7b19f48a
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pvrjl"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -27,6 +36,8 @@ size = Vector3(60, 2, 60)
 [sub_resource type="BoxMesh" id="BoxMesh_or5mh"]
 material = ExtResource("1_dpq8t")
 size = Vector3(60, 2, 60)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_lwuiu"]
 
 [node name="Main" type="Node"]
 
@@ -60,6 +71,7 @@ _timerForward = 0.3
 _rotBack = 0.12
 _rotForward = -0.13
 
+<<<<<<< HEAD
 [node name="Node3D" type="Node3D" parent="fishing_rod"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2860.73, 189.263, -1110.79)
 script = ExtResource("6_gmxt2")
@@ -70,3 +82,28 @@ transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 4.82162, 5.67144, 2.169
 [node name="Node3D" type="Node3D" parent="fishing_bobber"]
 script = ExtResource("6_gmxt2")
 _first = false
+=======
+[node name="fishing_rod" parent="." instance=ExtResource("4_gck68")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.6243, 4.37022, 11.8435)
+
+[node name="Fish1axis" type="Node3D" parent="."]
+script = ExtResource("5_npddq")
+
+[node name="Fish1Body" type="MeshInstance3D" parent="Fish1axis"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.35514, 0, 0)
+mesh = SubResource("CapsuleMesh_lwuiu")
+
+[node name="Fishaxis" type="Node3D" parent="."]
+script = ExtResource("5_npddq")
+
+[node name="FishBody" type="MeshInstance3D" parent="Fishaxis"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.46547, 0, 0)
+mesh = SubResource("CapsuleMesh_lwuiu")
+
+[node name="Fishaxis2" type="Node3D" parent="."]
+script = ExtResource("5_npddq")
+
+[node name="FishBody" type="MeshInstance3D" parent="Fishaxis2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.4472, 0, 0)
+mesh = SubResource("CapsuleMesh_lwuiu")
+>>>>>>> e7aa6dcb4017c56953756a35742fb2aa7b19f48a
