@@ -1,6 +1,6 @@
 extends Node3D
 
-@export var _initialState : State
+@export var _initialState : Base
 
 var _currentState: State
 var _states: Dictionary = {}

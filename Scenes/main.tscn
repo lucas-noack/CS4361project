@@ -1,19 +1,13 @@
-[gd_scene load_steps=13 format=3 uid="uid://watjdltbp07n"]
+[gd_scene load_steps=14 format=3 uid="uid://watjdltbp07n"]
 
 [ext_resource type="Material" uid="uid://ir2ui2e2naok" path="res://Shaders/water_material.tres" id="1_dpq8t"]
 [ext_resource type="PackedScene" uid="uid://b4tlaop81ivi7" path="res://Scenes/player_character.tscn" id="1_un332"]
-[ext_resource type="PackedScene" uid="uid://c70q0tpm5yxhc" path="res://Scenes/StateMachine.tscn" id="2_f8ipi"]
-<<<<<<< Updated upstream
+[ext_resource type="PackedScene" uid="uid://dhq5nktctdeqf" path="res://Scenes/StateMachine.tscn" id="2_f8ipi"]
 [ext_resource type="PackedScene" uid="uid://f1ok5aw4j28t" path="res://assets/fishing_rod/scene.gltf" id="4_lp7sl"]
 [ext_resource type="Script" path="res://Code/fishingCast.gd" id="5_aycmk"]
 [ext_resource type="Script" path="res://Scenes/fishingLine.gd" id="6_gmxt2"]
 [ext_resource type="PackedScene" uid="uid://cj6rjqa1odqb7" path="res://assets/fishing_bobber/scene.gltf" id="7_smiox"]
-=======
-[ext_resource type="PackedScene" uid="uid://cklwao4th5kvd" path="res://assets/fishing_rod/scene.gltf" id="4_lp7sl"]
-[ext_resource type="Script" path="res://Code/fishingCast.gd" id="5_aycmk"]
-[ext_resource type="Script" path="res://Scenes/fishingLine.gd" id="6_gmxt2"]
-[ext_resource type="PackedScene" uid="uid://b1u6k0fw2o4ip" path="res://assets/fishing_bobber/scene.gltf" id="7_smiox"]
->>>>>>> Stashed changes
+[ext_resource type="Script" path="res://Code/GlobalInput.gd" id="8_1xvrj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pvrjl"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -37,6 +31,9 @@ size = Vector3(60, 2, 60)
 
 [node name="Main" type="Node"]
 
+[node name="GlobalInput" type="Node" parent="."]
+script = ExtResource("8_1xvrj")
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_6vf04")
 
@@ -57,8 +54,6 @@ shadow_enabled = true
 [node name="PlayerCharacter" parent="." instance=ExtResource("1_un332")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, -0.332702, 2.08165e-12)
 
-[node name="state_machine" parent="." instance=ExtResource("2_f8ipi")]
-
 [node name="fishing_bobber" parent="." instance=ExtResource("7_smiox")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 4.82162, 1.43911, 2.16941)
 
@@ -77,3 +72,5 @@ _rotForward = -0.13
 [node name="Node3D" type="Node3D" parent="fishing_rod"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2860.73, 189.263, -1110.79)
 script = ExtResource("6_gmxt2")
+
+[node name="state_machine" parent="." instance=ExtResource("2_f8ipi")]

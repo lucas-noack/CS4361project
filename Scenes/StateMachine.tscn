@@ -1,23 +1,27 @@
-[gd_scene load_steps=6 format=3 uid="uid://c70q0tpm5yxhc"]
+[gd_scene load_steps=7 format=3 uid="uid://dhq5nktctdeqf"]
 
 [ext_resource type="Script" path="res://Code/state_machine.gd" id="1_arnkj"]
-[ext_resource type="Script" path="res://Code/States/Idle.gd" id="2_o7frp"]
-[ext_resource type="Script" path="res://Code/States/Fishing.gd" id="2_u2u73"]
-[ext_resource type="Script" path="res://Code/States/Moving.gd" id="3_rn3u5"]
+[ext_resource type="Script" path="res://Code/States/Base.gd" id="2_k2tj2"]
+[ext_resource type="Script" path="res://Code/States/Cast.gd" id="3_fbvbr"]
 [ext_resource type="Script" path="res://Code/States/MiniGame.gd" id="4_enu6x"]
+[ext_resource type="Script" path="res://Code/States/Casting.gd" id="4_mlcij"]
+[ext_resource type="Script" path="res://Code/States/Reeling.gd" id="5_vmhrq"]
 
 [node name="state_machine" type="Node3D" node_paths=PackedStringArray("_initialState")]
 script = ExtResource("1_arnkj")
-_initialState = NodePath("Idle")
+_initialState = NodePath("")
 
-[node name="Idle" type="Node3D" parent="."]
-script = ExtResource("2_o7frp")
+[node name="Base" type="Node" parent="."]
+script = ExtResource("2_k2tj2")
 
-[node name="Fishing" type="Node3D" parent="."]
-script = ExtResource("2_u2u73")
+[node name="Cast" type="Node" parent="."]
+script = ExtResource("3_fbvbr")
 
-[node name="MiniGame" type="Node3D" parent="."]
+[node name="Casting" type="Node" parent="."]
+script = ExtResource("4_mlcij")
+
+[node name="Reeling" type="Node" parent="."]
+script = ExtResource("5_vmhrq")
+
+[node name="MiniGame" type="Node" parent="."]
 script = ExtResource("4_enu6x")
-
-[node name="Moving" type="Node3D" parent="."]
-script = ExtResource("3_rn3u5")

@@ -16,6 +16,7 @@ var look_dir: Vector2 # Input direction for look/aim
 var walk_vel: Vector3 # Walking velocity 
 var grav_vel: Vector3 # Gravity velocity 
 
+@onready var global_input = $"../GlobalInput"
 @onready var camera: Camera3D = $FPSCamera
 
 func _ready() -> void:
@@ -45,14 +46,14 @@ func _rotate_camera(sens_mod: float = 1.0) -> void:
 	camera.rotation.x = clamp(camera.rotation.x - look_dir.y * camera_sens * sens_mod, -1.5, 1.5)
 
 func _handle_joypad_camera_rotation(delta: float, sens_mod: float = 1.0) -> void:
-	var joypad_dir: Vector2 = Input.get_vector("look_left","look_right","look_up","look_down")
+	var joypad_dir: Vector2 = global_input._joy1
 	if joypad_dir.length() > 0:
 		look_dir += joypad_dir * delta
 		_rotate_camera(sens_mod)
 		look_dir = Vector2.ZERO
 
 func _walk(delta: float) -> Vector3:
-	move_dir = Input.get_vector("Joy1Left", "Joy1Right", "Joy1Up", "Joy1Down")
+	move_dir = global_input._WASD
 	var _forward: Vector3 = camera.global_transform.basis * Vector3(move_dir.x, 0, move_dir.y)
 	var walk_dir: Vector3 = Vector3(_forward.x, 0, _forward.z).normalized()
 	walk_vel = walk_vel.move_toward(walk_dir * speed * move_dir.length(), acceleration * delta)

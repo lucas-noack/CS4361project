@@ -11,13 +11,12 @@ config_version=5
 [application]
 
 config/name="Splish & Fish"
-run/main_scene="res://Scenes/StateMachine.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
-GlobalInput="*res://Code/Input.gd"
+GlobalInput="*res://Code/GlobalInput.gd"
 LineGlobal="*res://Code/LineGlobal.gd"
 
 [input]

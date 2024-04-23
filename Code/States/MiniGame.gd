@@ -8,9 +8,9 @@ func Enter():
 func Exit():
 	print("Mini game over")
 
-func Update(_delta: float):
+func _process(delta):
 	if GlobalInput._longActionButton:
-		_totalTime += _delta
+		_totalTime += delta
 	
 	if GlobalInput._actionRelease:
 		print("action held for " + str(_totalTime) + " seconds")
