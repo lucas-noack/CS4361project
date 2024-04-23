@@ -37,9 +37,35 @@ var minigame_enabled: bool = false
 
 
 func _ready() -> void:
+	reset_minigame()
 	if auto_start:
 		await get_tree().create_timer(1).timeout
 		start_minigame()
+
+
+func _process(delta: float) -> void:
+	if not Engine.is_editor_hint():
+		if minigame_enabled:
+			arrow_position += delta * minigame_round_time * (-1 if reverse_direction else 1)
+			if bounce_arrow:
+				if arrow_position >= 1.0:
+					arrow_bounced.emit()
+					reverse_direction = true
+				if arrow_position <= 0.0:
+					arrow_bounced.emit()
+					reverse_direction = false
+			else:
+				if arrow_position >= 1.0:
+					end_minigame(false)
+			if Input.is_action_just_pressed("Interact"):
+				minigame_enabled = false
+				if arrow_position > left_success_margin and arrow_position < right_success_margin:
+					end_minigame(true)
+				else:
+					end_minigame(false)
+		else:
+			if Input.is_action_just_pressed("Interact"):
+				start_minigame()
 
 
 func start_minigame() -> void:
@@ -48,6 +74,7 @@ func start_minigame() -> void:
 
 func reset_minigame() -> void:
 	arrow_position = 0.0
+	minigame_enabled = false
 
 
 # Function to handle case where left margin is > right margin
@@ -62,26 +89,9 @@ func check_success_margins() -> void:
 		bar_texture.texture.gradient.set_color(2, success_color)
 
 
-func _process(delta: float) -> void:
-	if not Engine.is_editor_hint():
-		if minigame_enabled:
-			arrow_position += delta * minigame_round_time * (-1 if reverse_direction else 1)
-			if arrow_position >= 1.0:
-				arrow_bounced.emit()
-				reverse_direction = true
-			if arrow_position <= 0.0:
-				arrow_bounced.emit()
-				reverse_direction = false
-			if Input.is_action_just_pressed("Interact"):
-				minigame_enabled = false
-				if arrow_position > left_success_margin and arrow_position < right_success_margin:
-					minigame_finished.emit(true)
-				else:
-					minigame_finished.emit(false)
-		else:
-			if Input.is_action_just_pressed("Interact"):
-				reset_minigame()
-				start_minigame()
+func end_minigame(success: bool) -> void:
+	reset_minigame()
+	minigame_finished.emit(success)
 
 
 func _set_arrow_position(pos: float) -> void:
@@ -92,7 +102,7 @@ func _set_arrow_position(pos: float) -> void:
 func _set_left_success_margin(amt: float) -> void:
 	if not Engine.is_editor_hint():
 		await ready # need to await ready otherwise a tool script freaks out
-	if amt < right_success_margin: # make sure margins don't overlap
+	if amt < right_success_margin and amt >= 0.0: # make sure margins don't overlap
 		left_success_margin = amt
 		bar_texture.texture.gradient.set_offset(1, amt)
 
@@ -100,7 +110,7 @@ func _set_left_success_margin(amt: float) -> void:
 func _set_right_success_margin(amt: float) -> void:
 	if not Engine.is_editor_hint():
 		await ready
-	if left_success_margin < amt:
+	if left_success_margin < amt and amt <= 1.0:
 		right_success_margin = amt
 		bar_texture.texture.gradient.set_offset(2, amt)
 
@@ -112,8 +122,8 @@ func _set_arrow_texture(texture: Texture2D) -> void:
 	arrow_slide.set("theme_override_icons/grabber", texture)
 	arrow_slide.set("theme_override_icons/grabber_highlight", texture)
 	arrow_slide.set("theme_override_icons/grabber_disabled", texture)
-	arrow_align.set("theme_override_constants/margin_left", -texture.get_size().x)
-	arrow_align.set("theme_override_constants/margin_right", -texture.get_size().x)
+	arrow_align.set("theme_override_constants/margin_left", -texture.get_size().x / 2.0)
+	arrow_align.set("theme_override_constants/margin_right", -texture.get_size().x / 2.0)
 	arrow_align.set("theme_override_constants/margin_bottom", -texture.get_size().y / 2.0)
 
 

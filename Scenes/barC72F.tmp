@@ -5,7 +5,7 @@
 
 [sub_resource type="Gradient" id="Gradient_dmyku"]
 interpolation_mode = 1
-offsets = PackedFloat32Array(0, 0.48, 0.52)
+offsets = PackedFloat32Array(0, 0.37, 0.72)
 colors = PackedColorArray(1, 0, 0, 1, 0, 1, 0.423529, 1, 1, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_bx64m"]
@@ -52,8 +52,8 @@ offset_right = -24.0
 offset_bottom = 48.0
 grow_horizontal = 2
 script = ExtResource("1_cmaod")
-left_success_margin = 0.48
-right_success_margin = 0.52
+left_success_margin = 0.37
+right_success_margin = 0.72
 success_color = Color(0, 1, 0.423529, 1)
 
 [node name="BarTexture" type="TextureRect" parent="."]
