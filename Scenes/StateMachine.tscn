@@ -7,9 +7,8 @@
 [ext_resource type="Script" path="res://Code/States/Casting.gd" id="4_mlcij"]
 [ext_resource type="Script" path="res://Code/States/Reeling.gd" id="5_vmhrq"]
 
-[node name="state_machine" type="Node3D" node_paths=PackedStringArray("_initialState")]
+[node name="state_machine" type="Node3D"]
 script = ExtResource("1_arnkj")
-_initialState = NodePath("")
 
 [node name="Base" type="Node" parent="."]
 script = ExtResource("2_k2tj2")
