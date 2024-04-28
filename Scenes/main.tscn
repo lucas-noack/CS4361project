@@ -1,12 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://watjdltbp07n"]
+[gd_scene load_steps=10 format=3 uid="uid://watjdltbp07n"]
 
 [ext_resource type="Material" uid="uid://ir2ui2e2naok" path="res://Shaders/water_material.tres" id="1_dpq8t"]
 [ext_resource type="PackedScene" uid="uid://b4tlaop81ivi7" path="res://Scenes/player_character.tscn" id="1_un332"]
 [ext_resource type="PackedScene" uid="uid://dhq5nktctdeqf" path="res://Scenes/StateMachine.tscn" id="2_f8ipi"]
-[ext_resource type="PackedScene" uid="uid://f1ok5aw4j28t" path="res://assets/fishing_rod/scene.gltf" id="4_lp7sl"]
-[ext_resource type="Script" path="res://Code/fishingCast.gd" id="5_aycmk"]
-[ext_resource type="Script" path="res://Scenes/fishingLine.gd" id="6_gmxt2"]
-[ext_resource type="PackedScene" uid="uid://cj6rjqa1odqb7" path="res://assets/fishing_bobber/scene.gltf" id="7_smiox"]
 [ext_resource type="Script" path="res://Code/GlobalInput.gd" id="8_1xvrj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pvrjl"]
@@ -52,25 +48,6 @@ transform = Transform3D(1, 0, 0, 0, 0.376079, 0.926588, 0, -0.926588, 0.376079, 
 shadow_enabled = true
 
 [node name="PlayerCharacter" parent="." instance=ExtResource("1_un332")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, -0.332702, 2.08165e-12)
-
-[node name="fishing_bobber" parent="." instance=ExtResource("7_smiox")]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 4.82162, 1.43911, 2.16941)
-
-[node name="Node3D" type="Node3D" parent="fishing_bobber"]
-script = ExtResource("6_gmxt2")
-_first = false
-
-[node name="fishing_rod" parent="." instance=ExtResource("4_lp7sl")]
-transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 0.261828, 0.879191, 3.21035)
-script = ExtResource("5_aycmk")
-_timerBack = 0.7
-_timerForward = 0.3
-_rotBack = 0.12
-_rotForward = -0.13
-
-[node name="Node3D" type="Node3D" parent="fishing_rod"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2860.73, 189.263, -1110.79)
-script = ExtResource("6_gmxt2")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.962974, 2.08165e-12)
 
 [node name="state_machine" parent="." instance=ExtResource("2_f8ipi")]
